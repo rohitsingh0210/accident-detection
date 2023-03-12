@@ -37,10 +37,11 @@ date : {{ notification.accident_date }}
         accepted : {{ notification.accepted }}
         </p>
         <br>
+        <a href="" ><button type="button">Location</button></a>
         {% if notification.accepted == 0 %}
     <a href="{% url 'accept'  notification.n_id %}"><button type="button">Accept</button></a><br>
     {% else %}
-    <p>Accepted by some hospital</p>
+    <button type="button" class="btn-success" disabled>Accepted</button><br>
 {% endif %}
 <h1>----------------------------------------------------------------------------------------------------------</h1>
 {% endfor %}

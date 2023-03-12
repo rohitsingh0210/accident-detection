@@ -32,7 +32,9 @@ import pusher
 # })
 
 global hospital_name
-hospital_name ="Unnamed"
+hospital_name ="City hospital"
+global hospital_name2
+hospital_name2 ="City"
 
 def send_response():
     pusher_client = pusher.Pusher(
@@ -47,7 +49,7 @@ def send_response():
     # article.title = 'This is the title'
     # article.contents = 'This is the content'
     # article.save()
-    pusher_client.trigger('my-channel', 'my-event', {'message': 'Request Accepted'})
+    pusher_client.trigger('my-channel', 'my-event', {'message': 'Request Accepted by '+hospital_name})
     return
 
 def home(request):
@@ -98,9 +100,9 @@ def maps(request):
         print()
     return render(request,'index.html')
 
-# def send_mail(request):
-#     client = vonage.Client(key="4627a3c9", secret="KAd19Rz2sQ7HM3Tc")
-#     sms = vonage.Sms(client)
+def send_mail(request):
+    client = vonage.Client(key="4627a3c9", secret="KAd19Rz2sQ7HM3Tc")
+    sms = vonage.Sms(client)
     
 def hospital(request):
     return render(request,'hospital.html')
@@ -116,6 +118,20 @@ def test(request):
         'hospital_name':hospital_name,
     }
     return render(request,"index2.html",context)
+
+def test2(request):
+    global hospital_name2
+    notifications = Notifications.objects.all().order_by('-n_id') 
+    # text = ref.child('notify').child('Notification').get()
+    # accepted = ref.child('notify').child('accepted').get()
+    # projectname = database.child('Data').child('Projectname').get().val()
+    context = {
+        'notifications': notifications,
+        'hospital_name':hospital_name2,
+    }
+    
+    print("request received ",context)
+    return render(request,"index4.html",context)
 
 def accept(request,id):
     notification = Notifications.objects.filter(n_id=id).update(accepted = 1)

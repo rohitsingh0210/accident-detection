@@ -103,7 +103,7 @@
                 <a href="https://www.google.com/maps/search/?api=1&query=18.947675%2C72.822749 " target="_blank"><button class="btn btn-primary" type="button">Location</button></a>
                 {% if notification.accepted == 0 %}
     
-                <a href="{% url 'accept' notification.n_id %}"><button type="button" class="btn btn-primary">Accept</button></a>
+                <a href="{% url 'accept' notification.n_id hospital_name %}"><button type="button" class="btn btn-primary">Accept</button></a>
                 {% else %}
     <!-- <p style="    font-size: 25px;
     margin-right: 51px;

@@ -42,9 +42,10 @@ def send_notification(id,flag):
     secret='469709e6b17fadfab16f',
     cluster='ap2',
     ssl=True
-    )
+    )   
     if flag:
-        notif = Notifications(notification="accident happened",lattitude=47.5,longitude=122.33,accepted=0)
+        
+        notif = Notifications(notification="accident happened",lattitude=18.947675,longitude=72.822749,accepted=0)
         
         notif.save()
     if id==1:
@@ -81,7 +82,7 @@ def send_message():
         {
             "from": "Jatin Goyal",
             "to": "918168991401",
-            "text": "Urgent \n Accident happened at raj labadi. Please send ambulance as soon as possible. Google map link :- https://www.google.com/maps/search/?api=1&query=47.5%2C-122.3316393 ",
+            "text": "Urgent \n Accident happened at raj labadi. Please send ambulance as soon as possible. Google map link :- https://www.google.com/maps/search/?api=1&query=18.947675%2C72.822749 ",
         }
     )
 
@@ -89,7 +90,7 @@ def send_message():
         print("Message sent successfully.")
     else:
         print(f"Message failed with error: {responseData['messages'][0]['error-text']}")
-
+ 
     
 def sendmail():
     hospital=Hospital.objects.all()
@@ -97,7 +98,7 @@ def sendmail():
     gmail_list=[]
     for hos in hospital.values():
         gmail_list.append(hos['email'])
-    gmail_list.append("sachinkhandelwal9413@gmail.com")
+    gmail_list.append("rohitjsingh974@gmail.com")
     print("gmail list",gmail_list)
     email_subject = "Urgent please send ambulance."
     email_body = "Accident happened at raj labadi please send ambulance as soon as possible. Google map link :- https://www.google.com/maps/search/?api=1&query=47.5%2C122.3316393 "
@@ -110,10 +111,10 @@ class streaming(object):
     def __init__(self):
         print("hello")
         self.flag=True
-        self.video_capture = cv2.VideoCapture(0)
-        # self.video_capture = cv2.VideoCapture("C:\\Users\\LENOVO\\Downloads\\accident3.mp4")
-        self.model1=torch.hub.load('ultralytics/yolov5', 'custom', path='C:\\Users\\LENOVO\\projects\\Dot_Slash_Road_Safety\\AccidentDetection\\best (2).pt',device='cpu')
-        self.model = torch.hub.load('ultralytics/yolov5', 'custom', path='C:\\Users\\LENOVO\\projects\\Dot_Slash_Road_Safety\\AccidentDetection\\accident2.pt',device='cpu')
+        # self.video_capture = cv2.VideoCapture(0)
+        self.video_capture = cv2.VideoCapture("highway_accident.mp4")
+        self.model1=torch.hub.load('ultralytics/yolov5', 'custom', path='best (2).pt',device='cpu')
+        self.model = torch.hub.load('ultralytics/yolov5', 'custom', path='accident2.pt',device='cpu')
 # model1 = torch.hub.load('ultralytics/yolov5', 'custom', path='C:\\Users\\hp\\Desktop\\accident.pt')
 
     def get_frame(self):
